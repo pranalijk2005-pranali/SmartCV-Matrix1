@@ -8,7 +8,7 @@ import time
 # Page Configuration
 st.set_page_config(
     page_title="SmartCV Matrix",
-    page_icon="📄",
+    page_icon="🎯",
     layout="wide"
 )
 
