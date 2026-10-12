@@ -11,47 +11,102 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for Dark Mode visibility, disabled text boxes, and metric styling
+# Comprehensive Dark Theme CSS with High-Contrast Typography
 st.markdown("""
     <style>
-    /* Dark background for app */
+    /* Main App Background */
     .stApp {
-        background-color: #0f172a;
-        color: #f8fafc;
+        background-color: #0f172a !important;
+        color: #f8fafc !important;
     }
-    
-    /* Text input and Text area styling (Editable) */
+
+    /* Headings & Subtitles */
+    h1, h2, h3, h4, h5, h6, .stMarkdown p {
+        color: #f8fafc !important;
+    }
+
+    /* Input Field Labels (Upload, Textarea, Inputs) */
+    label, .stWidgetLabel p {
+        color: #e2e8f0 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Text inputs & Text Areas */
     .stTextArea textarea, .stTextInput input {
         background-color: #1e293b !important;
-        color: #f8fafc !important;
+        color: #ffffff !important;
         border: 1px solid #334155 !important;
         border-radius: 8px !important;
     }
 
-    /* Fix for Disabled / Read-Only Text Areas (Comparison Tab) */
+    /* Disabled/Read-Only Text Areas (Original vs Tailored) */
     .stTextArea textarea:disabled {
         background-color: #1e293b !important;
         color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important; /* Forces full white text on Webkit browsers */
-        opacity: 1 !important; /* Removes Streamlit default dimmed opacity */
+        -webkit-text-fill-color: #ffffff !important;
+        opacity: 1 !important;
         border: 1px solid #475569 !important;
     }
 
-    /* Placeholder text color */
-    .stTextArea textarea::placeholder, .stTextInput input::placeholder {
+    /* Primary Buttons ("Tailor & Analyze") */
+    .stButton > button {
+        background-color: #2563eb !important;
+        color: #ffffff !important;
+        border-radius: 8px !important;
+        border: none !important;
+        font-weight: 600 !important;
+    }
+    .stButton > button:hover {
+        background-color: #1d4ed8 !important;
+        color: #ffffff !important;
+    }
+
+    /* Download Button Fix (Dark background with bright white text) */
+    .stDownloadButton > button {
+        background-color: #059669 !important;
+        color: #ffffff !important;
+        border-radius: 8px !important;
+        border: none !important;
+        font-weight: 600 !important;
+    }
+    .stDownloadButton > button:hover {
+        background-color: #047857 !important;
+        color: #ffffff !important;
+    }
+
+    /* Tab Headers Visibility Fix */
+    button[data-baseweb="tab"] {
         color: #94a3b8 !important;
+        font-weight: 600 !important;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: #38bdf8 !important;
+        border-bottom-color: #38bdf8 !important;
     }
 
-    /* Input Labels color */
-    .stTextArea label, .stTextInput label, .stFileUploader label {
-        color: #e2e8f0 !important;
+    /* Metric Card Fixes */
+    div[data-testid="stMetricLabel"] p {
+        color: #cbd5e1 !important;
+        font-size: 1rem !important;
     }
-
-    /* Custom Metric Styling */
     div[data-testid="stMetricValue"] {
         color: #38bdf8 !important;
         font-size: 2.2rem !important;
-        font-weight: 700;
+        font-weight: 700 !important;
+    }
+
+    /* File Uploader Container */
+    div[data-testid="stFileUploader"] {
+        background-color: #1e293b !important;
+        border: 1px dashed #475569 !important;
+        border-radius: 8px !important;
+        padding: 10px !important;
+    }
+    div[data-testid="stFileUploader"] section {
+        background-color: #1e293b !important;
+    }
+    div[data-testid="stFileUploader"] span, div[data-testid="stFileUploader"] small {
+        color: #cbd5e1 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -65,7 +120,6 @@ with st.sidebar:
     st.header("⚙️ Configuration")
     api_key_input = st.text_input("Gemini API Key", type="password", help="Enter your Google AI Studio API key")
     
-    # Priority: Streamlit secrets -> Manual Input -> OS Env
     api_key = st.secrets.get("GEMINI_API_KEY", "") or api_key_input or os.getenv("GEMINI_API_KEY", "")
     
     if not api_key:
@@ -102,7 +156,7 @@ with col2:
                     
                     resume_text = resume_text[:4000]
 
-                    # 2. Call Gemini API with JSON structure request
+                    # 2. Call Gemini API
                     client = genai.Client(api_key=api_key)
                     prompt = f"""
                     You are an expert ATS (Applicant Tracking System) specialist and resume optimizer.
@@ -110,7 +164,7 @@ with col2:
                     
                     Provide your output strictly in valid JSON format with three keys:
                     1. "match_score": An integer between 0 and 100 representing how well the tailored resume matches the job description.
-                    2. "key_changes": A bulleted summary (in markdown format) highlighting what was added, modified, or emphasized (e.g., missing keywords added, skills reordered).
+                    2. "key_changes": A bulleted summary (in markdown format) highlighting what was added, modified, or emphasized.
                     3. "tailored_resume": The fully rewritten and tailored resume in Markdown format.
 
                     RESUME TEXT:
