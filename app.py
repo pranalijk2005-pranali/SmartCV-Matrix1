@@ -12,7 +12,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Comprehensive Dark Theme CSS with Forced Tab Text Color Fix
+# Comprehensive Dark Theme CSS with Bulletproof Tab Fix
 st.markdown("""
     <style>
     /* Main App Background */
@@ -76,39 +76,36 @@ st.markdown("""
     }
 
     /* ======================================================== */
-    /* FORCED HIGH-CONTRAST TAB HEADERS FIX                     */
+    /* FOOLPROOF TAB HEADERS COLOR FIX                          */
     /* ======================================================== */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
     }
 
-    /* Tab buttons background card */
-    .stTabs [data-baseweb="tab-list"] button {
+    /* All tab buttons background */
+    button[data-baseweb="tab"] {
         background-color: #1e293b !important;
         border-radius: 6px !important;
         padding: 6px 16px !important;
         border: 1px solid #334155 !important;
     }
 
-    /* Force ALL tab text inside buttons to be crisp white/light */
-    .stTabs [data-baseweb="tab-list"] button div, 
-    .stTabs [data-baseweb="tab-list"] button span, 
-    .stTabs [data-baseweb="tab-list"] button p {
+    /* Force UNSELECTED tabs to be bright white */
+    button[data-baseweb="tab"][aria-selected="false"] * {
         color: #f8fafc !important;
         opacity: 1 !important;
         font-weight: 600 !important;
     }
 
-    /* Selected tab styling highlight */
-    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] {
+    /* Force SELECTED tab styling */
+    button[data-baseweb="tab"][aria-selected="true"] {
         background-color: #2563eb !important;
         border-color: #3b82f6 !important;
     }
 
-    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] div, 
-    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] span, 
-    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
+    button[data-baseweb="tab"][aria-selected="true"] * {
         color: #ffffff !important;
+        opacity: 1 !important;
         font-weight: 700 !important;
     }
 
