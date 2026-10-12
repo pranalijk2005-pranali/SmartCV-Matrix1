@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for Dark Mode visibility and metric styling
+# Custom CSS for Dark Mode visibility, disabled text boxes, and metric styling
 st.markdown("""
     <style>
     /* Dark background for app */
@@ -20,12 +20,21 @@ st.markdown("""
         color: #f8fafc;
     }
     
-    /* Text input and Text area styling */
+    /* Text input and Text area styling (Editable) */
     .stTextArea textarea, .stTextInput input {
         background-color: #1e293b !important;
         color: #f8fafc !important;
         border: 1px solid #334155 !important;
         border-radius: 8px !important;
+    }
+
+    /* Fix for Disabled / Read-Only Text Areas (Comparison Tab) */
+    .stTextArea textarea:disabled {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important; /* Forces full white text on Webkit browsers */
+        opacity: 1 !important; /* Removes Streamlit default dimmed opacity */
+        border: 1px solid #475569 !important;
     }
 
     /* Placeholder text color */
