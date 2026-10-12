@@ -12,7 +12,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Comprehensive Dark Theme CSS with Card-Style Tab Fixes
+# Comprehensive Dark Theme CSS with Forced Tab Text Color Fix
 st.markdown("""
     <style>
     /* Main App Background */
@@ -76,13 +76,13 @@ st.markdown("""
     }
 
     /* ======================================================== */
-    /* CARD-STYLE TAB HEADERS FIX                               */
+    /* FORCED HIGH-CONTRAST TAB HEADERS FIX                     */
     /* ======================================================== */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
     }
 
-    /* All tab buttons styled as clean cards */
+    /* Tab buttons background card */
     .stTabs [data-baseweb="tab-list"] button {
         background-color: #1e293b !important;
         border-radius: 6px !important;
@@ -90,26 +90,29 @@ st.markdown("""
         border: 1px solid #334155 !important;
     }
 
-    /* Unselected tab text */
-    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+    /* Force ALL tab text inside buttons to be crisp white/light */
+    .stTabs [data-baseweb="tab-list"] button div, 
+    .stTabs [data-baseweb="tab-list"] button span, 
+    .stTabs [data-baseweb="tab-list"] button p {
         color: #f8fafc !important;
+        opacity: 1 !important;
         font-weight: 600 !important;
-        opacity: 0.9 !important;
     }
 
-    /* Selected tab text and background highlight */
+    /* Selected tab styling highlight */
     .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] {
         background-color: #2563eb !important;
         border-color: #3b82f6 !important;
     }
 
-    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] [data-testid="stMarkdownContainer"] p {
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] div, 
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] span, 
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
         color: #ffffff !important;
         font-weight: 700 !important;
-        opacity: 1 !important;
     }
 
-    /* Hide default Streamlit tab bottom line highlight */
+    /* Hide default Streamlit underline */
     div[data-baseweb="tab-highlight"] {
         display: none !important;
     }
