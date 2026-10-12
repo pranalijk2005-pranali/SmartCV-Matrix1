@@ -10,12 +10,31 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom Styling to match sleek dark theme
+# Custom CSS for proper Dark Mode styling and input visibility
 st.markdown("""
     <style>
+    /* Dark background for app */
     .stApp {
         background-color: #0f172a;
         color: #f8fafc;
+    }
+    
+    /* Text input and Text area styling */
+    .stTextArea textarea, .stTextInput input {
+        background-color: #1e293b !important;
+        color: #f8fafc !important;
+        border: 1px solid #334155 !important;
+        border-radius: 8px !important;
+    }
+
+    /* Placeholder text color */
+    .stTextArea textarea::placeholder, .stTextInput input::placeholder {
+        color: #94a3b8 !important;
+    }
+
+    /* Input Labels color */
+    .stTextArea label, .stTextInput label, .stFileUploader label {
+        color: #e2e8f0 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -27,7 +46,6 @@ st.caption("AI-Powered Resume Tailoring | Powered by Gemini & Python")
 # Sidebar Configuration
 with st.sidebar:
     st.header("⚙️ Configuration")
-    # Tries to get key from secrets, defaults to text input if missing
     api_key_input = st.text_input("Gemini API Key", type="password", help="Enter your Google AI Studio API key")
     
     # Priority: Streamlit secrets -> Manual Input -> OS Env
