@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Comprehensive Dark Theme CSS with High-Contrast Typography
+# Comprehensive Dark Theme CSS with Tab Visibility Fixes
 st.markdown("""
     <style>
     /* Main App Background */
@@ -20,12 +20,12 @@ st.markdown("""
         color: #f8fafc !important;
     }
 
-    /* Headings & Subtitles */
+    /* Headings & Text */
     h1, h2, h3, h4, h5, h6, .stMarkdown p {
         color: #f8fafc !important;
     }
 
-    /* Input Field Labels (Upload, Textarea, Inputs) */
+    /* Input Field Labels */
     label, .stWidgetLabel p {
         color: #e2e8f0 !important;
         font-weight: 600 !important;
@@ -61,7 +61,7 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* Download Button Fix (Dark background with bright white text) */
+    /* Download Button Fix */
     .stDownloadButton > button {
         background-color: #059669 !important;
         color: #ffffff !important;
@@ -74,14 +74,35 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* Tab Headers Visibility Fix */
+    /* Tab Headers Visibility Fix (Active & Inactive Tabs) */
     button[data-baseweb="tab"] {
-        color: #94a3b8 !important;
-        font-weight: 600 !important;
+        background-color: transparent !important;
+        border-radius: 6px !important;
+        padding: 8px 16px !important;
     }
-    button[data-baseweb="tab"][aria-selected="true"] {
-        color: #38bdf8 !important;
-        border-bottom-color: #38bdf8 !important;
+
+    /* Unselected Tab Text & Icons */
+    button[data-baseweb="tab"] div, 
+    button[data-baseweb="tab"] p, 
+    button[data-baseweb="tab"] span {
+        color: #cbd5e1 !important;
+        font-weight: 600 !important;
+        font-size: 1.05rem !important;
+        opacity: 0.9 !important;
+    }
+
+    /* Selected Tab Text & Icons */
+    button[data-baseweb="tab"][aria-selected="true"] div, 
+    button[data-baseweb="tab"][aria-selected="true"] p, 
+    button[data-baseweb="tab"][aria-selected="true"] span {
+        color: #ff4b4b !important;
+        font-weight: 700 !important;
+        opacity: 1 !important;
+    }
+
+    /* Tab Indicator Underline */
+    div[data-baseweb="tab-highlight"] {
+        background-color: #ff4b4b !important;
     }
 
     /* Metric Card Fixes */
