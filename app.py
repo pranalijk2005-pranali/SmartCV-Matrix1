@@ -3,6 +3,7 @@ import pypdf
 from google import genai
 import os
 import json
+import time
 
 # Page Configuration
 st.set_page_config(
@@ -185,7 +186,7 @@ with col2:
                     
                     resume_text = resume_text[:4000]
 
-                    # 2. Call Gemini API
+                    # 2. Call Gemini API with automatic retry logic for 503 errors
                     client = genai.Client(api_key=api_key)
                     prompt = f"""
                     You are an expert ATS (Applicant Tracking System) specialist and resume optimizer.
@@ -203,11 +204,23 @@ with col2:
                     {job_description}
                     """
 
-                    response = client.models.generate_content(
-                        model="gemini-3.5-flash-lite",
-                        contents=prompt,
-                        config={"response_mime_type": "application/json"}
-                    )
+                    response = None
+                    max_retries = 3
+                    
+                    for attempt in range(max_retries):
+                        try:
+                            response = client.models.generate_content(
+                                model="gemini-3.5-flash-lite",
+                                contents=prompt,
+                                config={"response_mime_type": "application/json"}
+                            )
+                            break
+                        except Exception as api_err:
+                            if "503" in str(api_err) and attempt < max_retries - 1:
+                                time.sleep(2 * (attempt + 1))
+                                continue
+                            else:
+                                raise api_err
 
                     # 3. Parse JSON response
                     result_data = json.loads(response.text)
