@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Comprehensive Dark Theme CSS with Tab Visibility Fixes
+# Comprehensive Dark Theme CSS with Card-Style Tab Fixes
 st.markdown("""
     <style>
     /* Main App Background */
@@ -74,35 +74,43 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* Tab Headers Visibility Fix (Active & Inactive Tabs) */
-    button[data-baseweb="tab"] {
-        background-color: transparent !important;
-        border-radius: 6px !important;
-        padding: 8px 16px !important;
+    /* ======================================================== */
+    /* CARD-STYLE TAB HEADERS FIX                               */
+    /* ======================================================== */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
     }
 
-    /* Unselected Tab Text & Icons */
-    button[data-baseweb="tab"] div, 
-    button[data-baseweb="tab"] p, 
-    button[data-baseweb="tab"] span {
-        color: #cbd5e1 !important;
+    /* All tab buttons styled as clean cards */
+    .stTabs [data-baseweb="tab-list"] button {
+        background-color: #1e293b !important;
+        border-radius: 6px !important;
+        padding: 6px 16px !important;
+        border: 1px solid #334155 !important;
+    }
+
+    /* Unselected tab text */
+    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+        color: #f8fafc !important;
         font-weight: 600 !important;
-        font-size: 1.05rem !important;
         opacity: 0.9 !important;
     }
 
-    /* Selected Tab Text & Icons */
-    button[data-baseweb="tab"][aria-selected="true"] div, 
-    button[data-baseweb="tab"][aria-selected="true"] p, 
-    button[data-baseweb="tab"][aria-selected="true"] span {
-        color: #ff4b4b !important;
+    /* Selected tab text and background highlight */
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] {
+        background-color: #2563eb !important;
+        border-color: #3b82f6 !important;
+    }
+
+    .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] [data-testid="stMarkdownContainer"] p {
+        color: #ffffff !important;
         font-weight: 700 !important;
         opacity: 1 !important;
     }
 
-    /* Tab Indicator Underline */
+    /* Hide default Streamlit tab bottom line highlight */
     div[data-baseweb="tab-highlight"] {
-        background-color: #ff4b4b !important;
+        display: none !important;
     }
 
     /* Metric Card Fixes */
